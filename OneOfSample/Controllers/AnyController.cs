@@ -10,7 +10,7 @@ namespace OneOfSample.Controllers
     [Route("[controller]")]
     public class AnyController : ControllerBase
     {
-        [HttpPost("traditional")]
+        [HttpPost("v1/payments")]
         public IActionResult Post(OrderPurchase body)
         {
             try
@@ -33,7 +33,7 @@ namespace OneOfSample.Controllers
             }
         }
 
-        [HttpPost("one-of")]
+        [HttpPost("v2/payments")]
         public IActionResult UsingOneOf(OrderPurchase body)
         =>  new AnExoticForm()
             .MakePayment(body)
