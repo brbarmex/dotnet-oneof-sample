@@ -9,14 +9,14 @@ namespace OneOfSample.Services
         public ProofPayment MakePayment(OrderPurchase purchase)
         {
             if (purchase is null) return default;
-            if (purchase.OrderId <= 0) throw new OrderPaymentException("The orderId is invalid.");
-            if (purchase.Total <= 0) throw new OrderPaymentException("The total order cannot be zero.");
+            if (purchase.OrderId <= 0) throw new OrderPurchaseException("The orderId is invalid.");
+            if (purchase.Total <= 0) throw new OrderPurchaseException("The total order cannot be zero.");
 
             if (
                  purchase.EPaymentType != PaymentType.Cash       ||
                  purchase.EPaymentType != PaymentType.CreditCard ||
                  purchase.EPaymentType != PaymentType.DebitCard
-               ) { throw new OrderPaymentException("The type payment is invalid."); }
+               ) { throw new OrderPurchaseException("The type payment is invalid."); }
 
             return new ProofPayment
             {

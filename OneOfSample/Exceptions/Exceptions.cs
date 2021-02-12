@@ -2,17 +2,17 @@ using System;
 
 namespace OneOfSample.OneOfServices.Exceptions
 {
-    public class OrderPaymentException: Exception
+    public class OrderPurchaseException: Exception
     {
-        public OrderPaymentException() : base()
+        public OrderPurchaseException() : base()
         {
         }
 
-        public OrderPaymentException(string message) : base(message)
+        public OrderPurchaseException(string message) : base(message)
         {
         }
 
-        public OrderPaymentException(string message, Exception innerException) : base(message, innerException)
+        public OrderPurchaseException(string message, Exception innerException) : base(message, innerException)
         {
         }
     }

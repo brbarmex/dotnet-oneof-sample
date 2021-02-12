@@ -1,8 +1,8 @@
 namespace OneOfSample.Models
 {
-    public class OrderPaymentInvalid
+    public class OrderPurchaseInvalid
     {
-        public OrderPaymentInvalid(string invalidMessage)
+        public OrderPurchaseInvalid(string invalidMessage)
         => InvalidMessage = invalidMessage;
 
         public string InvalidMessage {get; }

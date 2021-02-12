@@ -1,7 +1,8 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
-using OneOfSample.OneOfServices;
+using OneOfSample.Models;
 using OneOfSample.OneOfServices.Exceptions;
-using OneOfSample.OneOfServices.Models;
+using OneOfSample.Services;
 
 namespace OneOfSample.Controllers
 {
@@ -10,33 +11,36 @@ namespace OneOfSample.Controllers
     public class AnyController : ControllerBase
     {
         [HttpPost("traditional")]
-        public IActionResult TraditionalPost(OrderPayment body)
+        public IActionResult Post(OrderPurchase body)
         {
             try
             {
-                var handlerResult = new PaymentService().MakePaymentUsingTraditionalMethod(body);
+                var result = new TraditionalWay().MakePayment(body);
 
-                if (handlerResult is null)
+                if (result is null)
                     return BadRequest();
 
-                return Ok(handlerResult);
+                return Ok(result);
             }
-            catch (OrderPaymentException ex)
+            catch (OrderPurchaseException ex)
             {
                 return BadRequest(error: ex.Message);
+            }
+            catch(Exception ex)
+            {
+                // Any exception...
+                return StatusCode(500, ex.Message);
             }
         }
 
         [HttpPost("one-of")]
-        public IActionResult UsingOneOf(OrderPayment body)
-        {
-            return new PaymentService()
-            .MakePaymentWitOneOf(body)
+        public IActionResult UsingOneOf(OrderPurchase body)
+        =>  new AnExoticForm()
+            .MakePayment(body)
             .Match<IActionResult>
             (
-                success => Ok(success),
-                invalid => BadRequest(invalid.InvalidMessage)
+                proofPayment => Ok(proofPayment),
+                orderPaymentInvalid => BadRequest(orderPaymentInvalid.InvalidMessage)
             );
-        }
     }
 }
