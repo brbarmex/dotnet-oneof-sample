@@ -13,8 +13,8 @@ namespace OneOfSample.Services
             if (purchase.Total <= 0) return new OrderPurchaseInvalid("The total order cannot be zero.");
 
             if (
-                 purchase.EPaymentType != PaymentType.Cash       ||
-                 purchase.EPaymentType != PaymentType.CreditCard ||
+                 purchase.EPaymentType != PaymentType.Cash       &&
+                 purchase.EPaymentType != PaymentType.CreditCard &&
                  purchase.EPaymentType != PaymentType.DebitCard
                ) { return new OrderPurchaseInvalid("The type payment is invalid."); }
 
